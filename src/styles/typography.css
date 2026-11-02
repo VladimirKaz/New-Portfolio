@@ -1,0 +1,7 @@
+:root {
+  /* Основной шрифт для текста */
+  --font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+
+  /* Моноширинный шрифт для акцентов, тегов и кода */
+  --font-mono: 'JetBrains Mono Variable', monospace;
+}

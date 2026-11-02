@@ -1,0 +1,46 @@
+---
+
+---
+
+<section id="about" class="about">
+  <div class="container">
+    <h2 class="section-title">Обо мне</h2>
+    <div class="about__content">
+      <p>
+        Я начинающий frontend-разработчик. Прошёл курсы по HTML и CSS/SCSS,
+        сейчас изучаю Astro.js и Vue.js, параллельно разбираюсь с Git. Верстаю
+        по методологии БЭМ — так код проще поддерживать и переиспользовать.
+      </p>
+      <p>
+        Делаю пет-проекты, чтобы закреплять знания на практике: от вёрстки
+        отдельных блоков до сборки полноценных страниц. Есть опыт работы с
+        темами WordPress — понимаю, как вёрстка живёт внутри CMS.
+      </p>
+      <p>
+        Ищу первую работу в команде, где смогу расти, получать обратную связь и
+        писать код, который решает реальные задачи.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: var(--space-8) 0;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-5);
+  }
+
+  .about__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 680px;
+    color: var(--color-text-muted);
+  }
+</style>
