@@ -12,7 +12,9 @@ const navItems = [
 <header class="header">
   <div class="container header__inner">
     <a href="/" class="header__logo">Владимир Казаков</a>
+
     <div class="header__right">
+      <!-- Десктопная навигация -->
       <nav class="header__nav" aria-label="Основная навигация">
         {
           navItems.map((item) => (
@@ -22,63 +24,191 @@ const navItems = [
           ))
         }
       </nav>
+
       <ThemeToggle />
+
+      <!-- Кнопка бургера (видна только на мобильных) -->
+      <button
+        class="header__burger"
+        aria-label="Открыть меню"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
 
-  <style>
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .header__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-
-    .header__right {
-      display: flex;
-      align-items: center;
-      gap: var(--space-4);
-    }
-
-    .header__logo {
-      font-weight: 600;
-      color: var(--color-text);
-      font-size: 1rem;
-    }
-
-    .header__logo:hover {
-      text-decoration: none;
-    }
-
-    .header__nav {
-      display: flex;
-      gap: var(--space-4);
-    }
-
-    .header__link {
-      color: var(--color-text-muted);
-      font-size: 0.875rem;
-      transition: color 0.2s;
-    }
-
-    .header__link:hover {
-      color: var(--color-text);
-      text-decoration: none;
-    }
-
-    @media (max-width: 640px) {
-      .header__nav {
-        display: none;
+  <!-- Мобильное меню -->
+  <div class="header__mobile-menu" id="mobile-menu">
+    <nav class="header__mobile-nav" aria-label="Мобильная навигация">
+      {
+        navItems.map((item) => (
+          <a href={item.href} class="header__mobile-link">
+            {item.label}
+          </a>
+        ))
       }
-    }
-  </style>
+    </nav>
+  </div>
 </header>
+
+<script>
+  const burger = document.querySelector(".header__burger");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileLinks = document.querySelectorAll(".header__mobile-link");
+
+  const toggleMenu = () => {
+    const isOpen = burger?.getAttribute("aria-expanded") === "true";
+    burger?.setAttribute("aria-expanded", String(!isOpen));
+    mobileMenu?.classList.toggle("is-open");
+  };
+
+  burger?.addEventListener("click", toggleMenu);
+
+  // Закрываем меню при клике на ссылку
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      burger?.setAttribute("aria-expanded", "false");
+      mobileMenu?.classList.remove("is-open");
+    });
+  });
+</script>
+
+<style>
+  /* --- Базовые стили (десктоп) --- */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .header__logo {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 1rem;
+    z-index: 101; /* Чтобы логотип был поверх мобильного меню */
+  }
+
+  .header__logo:hover {
+    text-decoration: none;
+  }
+
+  .header__right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .header__nav {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .header__link {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+
+  .header__link:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  /* --- Стили бургера --- */
+  .header__burger {
+    display: none; /* По умолчанию скрыт */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101; /* Поверх меню */
+  }
+
+  .header__burger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: all 0.3s ease;
+  }
+
+  /* Анимация бургера в крестик */
+  .header__burger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .header__burger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .header__burger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* --- Мобильное меню --- */
+  .header__mobile-menu {
+    position: fixed;
+    top: 64px; /* Высота шапки */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 64px);
+    background-color: var(--color-bg);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4);
+  }
+
+  .header__mobile-menu.is-open {
+    transform: translateX(0);
+  }
+
+  .header__mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .header__mobile-link {
+    font-size: 1.25rem;
+    color: var(--color-text);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* --- Медиа-запросы --- */
+  @media (max-width: 640px) {
+    .header__nav {
+      display: none; /* Скрываем десктопное меню */
+    }
+
+    .header__burger {
+      display: flex; /* Показываем бургер */
+    }
+  }
+
+  /* На десктопе мобильное меню не нужно вообще */
+  @media (min-width: 641px) {
+    .header__mobile-menu {
+      display: none;
+    }
+  }
+</style>
