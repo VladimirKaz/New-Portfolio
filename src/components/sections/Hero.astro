@@ -3,17 +3,39 @@
 ---
 
 <section class="hero">
-  <div class="container">
-    <p class="hero__greeting">Привет, я</p>
-    <h1 class="hero__name">Владимир Казаков</h1>
-    <p class="hero__role">Frontend-разработчик</p>
-    <p class="hero__pitch">
-      Учусь, делаю пет-проекты и ищу первую работу в команде, где смогу расти.
-      Верстаю на HTML, CSS/SCSS и БЭМ, изучаю Astro.js и Vue.js.
-    </p>
-    <div class="hero__actions">
-      <a href="#projects" class="btn btn--primary">Смотреть проекты</a>
-      <a href="#contact" class="btn btn--ghost">Связаться</a>
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <p class="hero__greeting">Привет, я</p>
+      <h1 class="hero__name">Владимир Казаков</h1>
+      <p class="hero__role">Frontend-разработчик</p>
+      <p class="hero__pitch">
+        Учусь, делаю пет-проекты и ищу первую работу в команде, где смогу расти.
+        Верстаю на HTML, CSS/SCSS и БЭМ, изучаю Astro и Vue.js.
+      </p>
+      <div class="hero__actions">
+        <a href="#projects" class="btn btn--primary">Смотреть проекты</a>
+        <a href="#contact" class="btn btn--ghost">Связаться</a>
+      </div>
+    </div>
+
+    <!-- Визуальный блок (заглушка под фото) -->
+    <div class="hero__visual">
+      <div class="code-window">
+        <div class="code-window__header">
+          <span class="code-window__dot code-window__dot--red"></span>
+          <span class="code-window__dot code-window__dot--yellow"></span>
+          <span class="code-window__dot code-window__dot--green"></span>
+          <span class="code-window__title">developer.ts</span>
+        </div>
+        <div class="code-window__body">
+          <pre><code><span class="code-window__keyword">const</span> developer = &#123;
+  name: <span class="code-window__string">'Владимир'</span>,
+  role: <span class="code-window__string">'Frontend'</span>,
+  skills: [<span class="code-window__string">'Astro'</span>, <span class="code-window__string">'Vue'</span>],
+  status: <span class="code-window__string">'open to work'</span>
+&#125;;</code></pre>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -23,12 +45,26 @@
     padding: var(--space-8) 0;
   }
 
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
   .hero__greeting {
     color: var(--color-accent);
     font-size: 0.875rem;
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    font-family: var(--font-mono);
   }
 
   .hero__name {
@@ -60,6 +96,7 @@
     flex-wrap: wrap;
   }
 
+  /* --- Кнопки (оставляем как были) --- */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -76,7 +113,7 @@
 
   .btn--primary {
     background-color: var(--color-accent);
-    color: var(--color-bg);
+    color: var(--color-bg); /* Текст цвета фона, чтобы читался на акценте */
   }
 
   .btn--primary:hover {
@@ -91,5 +128,74 @@
   .btn--ghost:hover {
     border-color: var(--color-accent);
     color: var(--color-accent);
+  }
+
+  /* --- Стили окна кода --- */
+  .hero__visual {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .hero__visual {
+      display: block;
+    }
+  }
+
+  .code-window {
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+  }
+
+  .code-window__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .code-window__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .code-window__dot--red {
+    background-color: #ff5f56;
+  }
+  .code-window__dot--yellow {
+    background-color: #ffbd2e;
+  }
+  .code-window__dot--green {
+    background-color: #27c93f;
+  }
+
+  .code-window__title {
+    margin-left: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .code-window__body {
+    padding: var(--space-4);
+    overflow-x: auto;
+  }
+
+  .code-window__body pre {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .code-window__keyword {
+    color: #c678dd;
+  }
+  .code-window__string {
+    color: #98c379;
   }
 </style>
