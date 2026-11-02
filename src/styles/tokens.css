@@ -2,9 +2,9 @@
   /* Цвета — тёмная тема по умолчанию */
   --color-bg: #0f1115;
   --color-bg-elevated: #181b22;
-  --color-text: #e8eaed;
-  --color-text-muted: #9aa0a6;
-  --color-accent: #6c8cff;
+  --color-text: #f1f3f4;
+  --color-text-muted: #a8b0b9;
+  --color-accent: #7c9cff;
   --color-border: #2a2e38;
 
   /* Отступы */
@@ -26,8 +26,8 @@
 :root[data-theme="light"] {
   --color-bg: #f8f9fa;
   --color-bg-elevated: #ffffff;
-  --color-text: #1a1d21;
-  --color-text-muted: #5f6368;
-  --color-accent: #4a6cf7;
-  --color-border: #e0e3e7;
+  --color-text: #111111;
+  --color-text-muted: #4a4d52;
+  --color-accent: #3554d1;
+  --color-border: #d1d5db;
 }
